@@ -22,7 +22,7 @@ Software neeeded:
  - NASM (www.nasm.us)
  - GCC (gcc.gnu.org)
 
-for example on Ubuntu you can type
+for example on Ubuntu you can type:
   
 ```
  sudo apt-get install nasm
