@@ -37,14 +37,6 @@ for example on Ubuntu you can type:
      sudo apt-get install libc6-dev-i386
 
 
-### Generate the executable
-  
- 
- Use the following command for compiling: 
-
-```
-nasm -f elf32 kdtreepca32.nasm && gcc -O0 -m32 -msse kdtreepca32.o kdtreepca32c.c -o kdtreepca32c && ./kdtreepca32c
-```
 
  
 ## Running the tests
