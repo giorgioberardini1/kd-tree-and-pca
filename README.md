@@ -79,11 +79,11 @@ numberOfColumns numberOfRows Point1FirstComponent Point1SecondComponent and so o
 
 ```
 
-you can find 3 datasets in the GitHub folder of the following dimension: 
+you can find 2 datasets in the GitHub folder of the following dimension: 
 
-- 8000x128 (ds1)
-- 5000x36 (test1)
-- 50000x768 (test2)
+- 8000x128 (test1)
+- 5000x36 (test2)
+
 
 
 
