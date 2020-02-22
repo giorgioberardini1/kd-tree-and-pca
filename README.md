@@ -48,7 +48,7 @@ If you want to compile and run use:
     ./runkdtreepca32 D [-pca <h>] [-kdtree [-rq <r>]]
     
 
-for 64 bit use:
+for 64 bit version use:
 
     ./runkdtreepca64 D [-pca <h>] [-kdtree [-rq <r>]]
     
