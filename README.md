@@ -46,28 +46,20 @@ for example on Ubuntu you can type:
 nasm -f elf32 kdtreepca32.nasm && gcc -O0 -m32 -msse kdtreepca32.o kdtreepca32c.c -o kdtreepca32c && ./kdtreepca32c
 ```
 
-  
-or, if you want to compile and run just type: 
-
-  
-
-```
-./runkdtreepca32
-```
-
-for the 64 bit version use: 
-
-```
-./runkdtreepca64
-```
-
+ 
 ## Running the tests
 
   
 
-If you want to run the program use:
+If you want to compile and run use:
 
     ./runkdtreepca32 D [-pca <h>] [-kdtree [-rq <r>]]
+    
+
+for 64 bit use:
+
+    ./runkdtreepca64 D [-pca <h>] [-kdtree [-rq <r>]]
+    
 
 
  - D: dataset name (without '.ds')
