@@ -47,14 +47,19 @@ nasm -f elf32 kdtreepca32.nasm && gcc -O0 -m32 -msse kdtreepca32.o kdtreepca32c.
 ```
 
   
-or, if you want to use the script: 
+or, if you want to compile and run just type: 
 
   
 
 ```
 ./runkdtreepca32
 ```
-  
+
+for the 64 bit version use: 
+
+```
+./runkdtreepca64
+```
 
 ## Running the tests
 
@@ -65,10 +70,16 @@ If you want to run the program use:
     ./runkdtreepca32 D [-pca <h>] [-kdtree [-rq <r>]]
 
 
- - D: dataset name
+ - D: dataset name (without '.ds')
  - pca <<h>h>: number of pca component 
  - kdtree: index the tree
  - rq <<r>r>: range query with radius r 
+ 
+  
+Note 1: if you are running in pca mode you're going to decompose the original dataset in two small datasets. They will be stored in two files named 'datasetname.U' and 'datasetname.V' each one bytes typed row major. 
+
+Note2: if you are running in range query mode you're going to generate a list of query answers that are stored in one file named 'datasetname.qa' bytes typed row major. 
+
 
 ### About the dataset 
 
