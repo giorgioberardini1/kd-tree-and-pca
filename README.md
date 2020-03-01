@@ -60,7 +60,7 @@ for 64 bit version use:
  - rq <<r>r>: range query with radius r 
  
   
-Note 1: if you are running in pca mode you're going to decompose the original dataset in two small datasets. They will be stored in two files named 'datasetname.U' and 'datasetname.V' both bytes typed row major. 
+Note 1: if you are running in pca mode you're going to decompose the original dataset into two small datasets. They will be stored in two files named 'datasetname.U' and 'datasetname.V' both bytes typed row major. 
 
 
 Note2: if you are running in range query mode you're going to generate a list of query answers that are stored in one file named 'datasetname.qa' bytes typed row major. 
