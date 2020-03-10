@@ -20,7 +20,7 @@ A solution is to reduce the dataset dimension considering only the principal com
 
 The algorithm used to implement the PCA is the NIPALS algorithm. 
 
-In order to obtain an improvement in performance in terms of time, we used the following optimization techniques both in C  and  Assembly environment ([ILP](https://en.wikipedia.org/wiki/Instruction-level_parallelism) - [SIMD](https://en.wikipedia.org/wiki/SIMD)):
+In order to obtain an improvement in performance in terms of time, we used the following optimization techniques both in C  and  Assembly environment ([ILP](https://en.wikipedia.org/wiki/Instruction-level_parallelism)- [SIMD](https://en.wikipedia.org/wiki/SIMD)):
 
 
 - Caching
@@ -89,7 +89,7 @@ If you want to compile and run use:
 
   
 
-./runkdtreepca32 D [-pca <h>] [-kdtree [-rq <r>]]
+    ./runkdtreepca32 D [-pca <h>] [-kdtree [-rq <r>]]
 
   
 
@@ -97,7 +97,7 @@ for 64 bit version use:
 
   
 
-./runkdtreepca64 D [-pca <h>] [-kdtree [-rq <r>]]
+    ./runkdtreepca64 D [-pca <h>] [-kdtree [-rq <r>]]
 
   
   
@@ -155,6 +155,6 @@ you can find 2 datasets in the GitHub folder of the following dimension:
 
   
 
-We got pretty good results in term of performance, we've got 1st place over 19 groups for the fastest implementation.
+We got pretty good results in term of performance, we ranked 1st over 19 groups for the fastest implementation.
 
   
