@@ -254,9 +254,9 @@ finalize:
 
 
 ;riscritto da Giorgio per evitare conflitti nei registri, l'altra versione può essere eliminata
-global prodottoScalareAssembly
+global scalarProductAssembly
 
-prodottoScalareAssembly:
+scalarProductAssembly:
 
 		push		ebp
 		mov			ebp, esp
@@ -361,9 +361,9 @@ finePS:
 
 
 ;versione obsoleta
-; global prodottoScalareAssembly
+; global scalarProductAssembly
 
-; prodottoScalareAssembly:
+; scalarProductAssembly:
 
 ; 		push		ebp							; salva il Base Pointer
 ; 		mov			ebp, esp					; il Base Pointer punta al Record di Attivazione corrente
@@ -539,9 +539,9 @@ funzioneProvaAssembly:
 
 
 
-global centraDatasetAssembly
+global centerDatasetAssembly
 
-centraDatasetAssembly:
+centerDatasetAssembly:
 
 
 
@@ -572,22 +572,14 @@ centraDatasetAssembly:
 cicloMedie64:
 			cmp ecx, 64
 			jl cicloMedie16
-		
 			movaps xmm0,[eax+esi]	 ;dataset
+
 	    	addps xmm0,[eax+esi+16]
 	    	addps xmm0,[eax+esi+32]
 	    	addps xmm0,[eax+esi+48]
-		
-			; addps xmm7,[eax+esi]	 ;dataset
-	    	; addps xmm7,[eax+esi+16]
-	    	; addps xmm7,[eax+esi+32]
-	    	; addps xmm7,[eax+esi+48]
 
 
 			addps xmm7,xmm0
-			
-
-
 			add esi,64
 
 			sub ecx, 64
@@ -634,13 +626,13 @@ finaleMedie:
 			; addps xmm0,xmm1
 			; addps xmm4,xmm3
 
-			; addps xmm7,xmm1
-			; addps xmm7,xmm3
+			;addps xmm7,xmm1
+			;addps xmm7,xmm3
 
-			; addps xmm7,xmm4
-			; addps xmm7,xmm0
+			;addps xmm7,xmm4
+			;addps xmm7,xmm0
 
-			; addps xmm7, xmm2
+			;addps xmm7, xmm2
 
 			haddps xmm7,xmm7
 			haddps xmm7,xmm7
@@ -700,17 +692,17 @@ cicloAggDS64:
 
 cicloScalareAggDS:
 
-			; cmp ebx, 4
-			; jl fineDS
+			cmp ebx, 4
+			jl fineDS
 
-			; movss xmm0, [eax+esi]
-			; subss xmm0, xmm7
+			movss xmm0, [eax+esi]
+			subss xmm0, xmm7
 
-			; movss [eax+esi], xmm0
-			; add esi, 4
-			; sub ebx, 4
+			movss [eax+esi], xmm0
+			add esi, 4
+			sub ebx, 4
 
-			; jmp cicloScalareAggDS
+			jmp cicloScalareAggDS
 
 fineDS:
 
@@ -724,9 +716,9 @@ fineDS:
 
 
 ;centra Dataset fatto da Giorgio, le performance peggiorano con questo unrolling
-; global centraDatasetAssembly
+; global centerDatasetAssembly
 
-; centraDatasetAssembly:
+; centerDatasetAssembly:
 
 
 
@@ -897,10 +889,10 @@ fineDS:
 
 
 
-global normalizzaVAssembly
+global normalizeVAssembly
 
 
-normalizzaVAssembly:
+normalizeVAssembly:
 
 	push		ebp							; salva il Base Pointer
 	mov			ebp, esp					; il Base Pointer punta al Record di Attivazione corrente
@@ -1138,9 +1130,9 @@ fineProdottoDsUV2:
 
 
 
-global aggiornaU
+global updateU
 
-aggiornaU:
+updateU:
 
 
 			push		ebp
@@ -1211,7 +1203,7 @@ cicloColonneDataset16:
 cicloColonneDatasetResto:
 
 			; cmp edi,4
-			; jl fineaggiornaU
+			; jl fineupdateU
 			; movss xmm0, [eax+esi]
 			; mulss xmm0,xmm6
 			; addss xmm0, [ebx+esi]
@@ -1225,7 +1217,7 @@ cicloColonneDatasetResto:
 
 
 
-fineaggiornaU:
+fineupdateU:
 
 			pop	edi
 			pop	esi
@@ -1236,9 +1228,9 @@ fineaggiornaU:
 
 
 
-global azzeraVettoreAssembly
+global resetVectorAssembly
 
-azzeraVettoreAssembly:
+resetVectorAssembly:
 
 			push		ebp
 			mov			ebp, esp
@@ -1366,9 +1358,9 @@ fineProdottoDsU:
 
 
 
-global aggiornaMatrice
+global updateMatrix
 
-aggiornaMatrice:
+updateMatrix:
 
 
             push        ebp
@@ -1383,9 +1375,9 @@ aggiornaMatrice:
 
             mov esi, 0
 
-cicloAggiornaMatrice64:
+cicloupdateMatrix64:
 			cmp ecx, 64
-			jl cicloAggiornaMatrice16
+			jl cicloupdateMatrix16
 
 			movaps xmm0, [ebx+esi]
 			movaps xmm1, [ebx+esi+16]
@@ -1399,34 +1391,34 @@ cicloAggiornaMatrice64:
 
 			add esi, 64
 			sub ecx, 64
-			jmp cicloAggiornaMatrice64
+			jmp cicloupdateMatrix64
 
 
-cicloAggiornaMatrice16:
+cicloupdateMatrix16:
 
             cmp ecx, 16
-            jl cicloAggiornaMatriceScalare
+            jl cicloupdateMatrixScalare
 
             movaps xmm0, [ebx+esi]        ;u[1..4]
             movaps [eax+esi], xmm0
 
             add esi, 16
             sub ecx, 16
-            jmp cicloAggiornaMatrice16
+            jmp cicloupdateMatrix16
 
-cicloAggiornaMatriceScalare:
+cicloupdateMatrixScalare:
 
 ;             cmp ecx, 4
-;             jl fineAggiornaMatrice
+;             jl fineupdateMatrix
 
 ;             movss xmm0, [ebx+esi]
 ;             movss [eax+esi], xmm0
 
 ;             add esi, 4
 ;             sub ecx, 4
-;             jmp cicloAggiornaMatriceScalare
+;             jmp cicloupdateMatrixScalare
 
-fineAggiornaMatrice:
+fineupdateMatrix:
 
             pop    edi
             pop    esi
@@ -1436,9 +1428,9 @@ fineAggiornaMatrice:
             ret
 
 
-global aggiornaDataset
+global updateDataset
 
-aggiornaDataset:
+updateDataset:
 
 
 			push        ebp
@@ -1454,18 +1446,18 @@ aggiornaDataset:
 			mov esi, [ebp+input+20] 	 ;n*k
 
 
-cicloKAggiornaDatasetVect:
+cicloKupdateDatasetVect:
             mov edx, [ebp+input+12]      ;n*4
 			cmp edi,4
-			jl fineAggiornaDataset
+			jl fineupdateDataset
 			sub edi,4
 			movss xmm6,[ecx+edi]    	;leggi ultimo elem di v
 			shufps xmm6,xmm6,00000000
 
-cicloNAggiornaDatasetUnrolling64:
+cicloNupdateDatasetUnrolling64:
 
 			cmp edx,64
-			jl cicloNAggiornaDatasetVect
+			jl cicloNupdateDatasetVect
 
 			sub edx,64     ;n*4 - 4 
 			sub esi,64     ;n*k - 4 
@@ -1501,12 +1493,12 @@ cicloNAggiornaDatasetUnrolling64:
 			movss xmm6,[ecx+edi]    	;leggi ultimo elem di v
 			shufps xmm6,xmm6,00000000
 
-			jmp cicloNAggiornaDatasetUnrolling64
+			jmp cicloNupdateDatasetUnrolling64
 
-cicloNAggiornaDatasetVect:
+cicloNupdateDatasetVect:
 
 			cmp edx,16
-			jl cicloNAggiornaDatasetResto
+			jl cicloNupdateDatasetResto
 
 			sub edx,16
 			sub esi,16
@@ -1519,13 +1511,13 @@ cicloNAggiornaDatasetVect:
 			subps xmm0,xmm1 	   		;D-u[1..4]*v[p]
 
 			movaps [eax+esi], xmm0 ;scrivi in D
-			jmp cicloNAggiornaDatasetVect
+			jmp cicloNupdateDatasetVect
 
 
-cicloNAggiornaDatasetResto:
+cicloNupdateDatasetResto:
 
 			cmp edx,4
-			jl cicloKAggiornaDatasetVect
+			jl cicloKupdateDatasetVect
 
 			sub edx,4
 			sub esi,4
@@ -1536,12 +1528,12 @@ cicloNAggiornaDatasetResto:
 			subss xmm0,xmm1
 
 			movss [eax+esi], xmm0
-			jmp cicloNAggiornaDatasetResto
+			jmp cicloNupdateDatasetResto
 
 
 
 
-fineAggiornaDataset:
+fineupdateDataset:
 
 
 			pop    edi
@@ -1709,9 +1701,9 @@ fineQPNoPCA:
             pop    ebp
             ret
 
-global prodottoQPV
+global productQPV
 
-prodottoQPV:
+productQPV:
 
 
 			push        ebp
@@ -1730,10 +1722,10 @@ prodottoQPV:
             xorps xmm6, xmm6
 
 
-cicloProdottoQPV64:
+cicloproductQPV64:
 
 			cmp edi, 64
-			jl cicloProdottoQPV16
+			jl cicloproductQPV16
 
 			movaps xmm0, [eax+esi]
 			movaps xmm1, [eax+esi+16]
@@ -1752,12 +1744,12 @@ cicloProdottoQPV64:
 
 			add esi, 64
 			sub edi, 64
-			jmp cicloProdottoQPV64
+			jmp cicloproductQPV64
 
-cicloProdottoQPV16:
+cicloproductQPV16:
 
            cmp edi, 16
-           jl cicloProdottoQPVScalare
+           jl cicloproductQPVScalare
 
            movaps xmm0, [eax+esi]
            mulps xmm0, [ebx+esi]
@@ -1766,13 +1758,13 @@ cicloProdottoQPV16:
            sub edi, 16
            add esi, 16
 
-           jmp cicloProdottoQPV16
+           jmp cicloproductQPV16
 
 
-cicloProdottoQPVScalare:
+cicloproductQPVScalare:
 
 			cmp edi, 4
-			jl fineProdottoQPV
+			jl fineproductQPV
 
 			movss xmm1, [eax+esi]
 			mulss xmm1, [ebx+esi]
@@ -1782,9 +1774,9 @@ cicloProdottoQPVScalare:
 			sub edi, 4
 			add esi, 4
 
-			jmp cicloProdottoQPVScalare
+			jmp cicloproductQPVScalare
 
-fineProdottoQPV:
+fineproductQPV:
 
 			addps xmm7, xmm6
 			haddps xmm7, xmm7

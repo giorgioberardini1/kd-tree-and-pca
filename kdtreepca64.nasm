@@ -206,9 +206,9 @@ finalize:
 
 
 
-global prodottoScalareAssembly
+global scalarProductAssembly
 
-prodottoScalareAssembly:
+scalarProductAssembly:
 
 		push		rbp							; salva il Base Pointer
 		mov			rbp, rsp				; il Base Pointer punta al Record di Attivazione corrente
@@ -289,9 +289,9 @@ finePS:
 
 
 
-global centraDatasetAssembly
+global centerDatasetAssembly
 
-centraDatasetAssembly:
+centerDatasetAssembly:
 
 		push		rbp							; salva il Base Pointer
 		mov			rbp, rsp				; il Base Pointer punta al Record di Attivazione corrente
@@ -494,9 +494,9 @@ fineQPNoPCA:
 
 
 
-global normalizzaVAssembly
+global normalizeVAssembly
 
-normalizzaVAssembly:
+normalizeVAssembly:
 			push		rbp							; salva il Base Pointer
 			mov			rbp, rsp				; il Base Pointer punta al Record di Attivazione corrente
 			pushaq									; salva i registri generali
@@ -566,10 +566,10 @@ fineNormalizza:
 
 
 
-global azzeraVettoreAssembly
+global resetVectorAssembly
 
 
-azzeraVettoreAssembly:
+resetVectorAssembly:
 
 
 			push		rbp							; salva il Base Pointer
@@ -583,10 +583,10 @@ azzeraVettoreAssembly:
 			mov r8, 0
 			vxorps ymm0, ymm0
 
-cicloAzzeraVettoreAssembly128:
+cicloresetVectorAssembly128:
 
 			cmp rsi, 128
-			jl cicloAzzeraVettoreAssembly32
+			jl cicloresetVectorAssembly32
 
 			vmovaps[rdi+r8], ymm0
 			vmovaps[rdi+r8+32], ymm0
@@ -596,21 +596,21 @@ cicloAzzeraVettoreAssembly128:
 			add r8, 128
 			sub rsi, 128
 
-			jmp cicloAzzeraVettoreAssembly128
+			jmp cicloresetVectorAssembly128
 
-cicloAzzeraVettoreAssembly32:
+cicloresetVectorAssembly32:
 
 			cmp rsi, 32
-			jl fineAzzeraVettoreAssembly
+			jl fineresetVectorAssembly
 
 			vmovaps [rdi+r8], ymm0
 
 			add r8, 32
 			sub rsi, 32
 
-			jmp cicloAzzeraVettoreAssembly32
+			jmp cicloresetVectorAssembly32
 
-fineAzzeraVettoreAssembly:
+fineresetVectorAssembly:
 
 
 
@@ -621,10 +621,10 @@ fineAzzeraVettoreAssembly:
 			ret							; torna alla funzione C chiamante
 
 
-global aggiornaU
+global updateU
 
 
-aggiornaU:
+updateU:
 
 
 			push		rbp							; salva il Base Pointer
@@ -1037,9 +1037,9 @@ fineProdottoDsUV2:
 
 
 
-global aggiornaMatrice
+global updateMatrix
 
-aggiornaMatrice:
+updateMatrix:
 
 						push		rbp							; salva il Base Pointer
 						mov			rbp, rsp					; il Base Pointer punta al Record di Attivazione corrente
@@ -1053,10 +1053,10 @@ aggiornaMatrice:
 						mov r8, 0
 
 
-cicloAggiornaMatrice128:
+cicloupdateMatrix128:
 
 						cmp rdx, 128
-						jl cicloAggiornaMatrice32
+						jl cicloupdateMatrix32
 
 						vmovaps ymm0, [rsi+r8]
 						vmovaps ymm1, [rsi+r8+32]
@@ -1070,24 +1070,24 @@ cicloAggiornaMatrice128:
 
 						add r8, 128
 						sub rdx, 128
-						jmp cicloAggiornaMatrice128
+						jmp cicloupdateMatrix128
 
 
-cicloAggiornaMatrice32:
+cicloupdateMatrix32:
 
 			      cmp rdx, 32
-			      jl fineAggiornaMatrice
+			      jl fineupdateMatrix
 
 			      vmovaps ymm0, [rsi+r8]        ;u[1..4]
 			      vmovaps [rdi+r8], ymm0
 
 			      add r8, 32
 			      sub rdx, 32
-			      jmp cicloAggiornaMatrice32
+			      jmp cicloupdateMatrix32
 
 
 
-fineAggiornaMatrice:
+fineupdateMatrix:
 
 						popaq						; ripristina i registri generali
 						mov		rsp, rbp			; ripristina lo Stack Pointer
@@ -1098,9 +1098,9 @@ fineAggiornaMatrice:
 
 
 
-global aggiornaDataset
+global updateDataset
 
-aggiornaDataset:
+updateDataset:
 
 						push		rbp							; salva il Base Pointer
 						mov			rbp, rsp				; il Base Pointer punta al Record di Attivazione corrente
@@ -1115,21 +1115,21 @@ aggiornaDataset:
 						;r9 = esi = n*k*4
 
 
-cicloKAggiornaDatasetVect:
+cicloKupdateDatasetVect:
 
             			mov r10, rcx      ;n*4
 						cmp r8,4
-						jl fineAggiornaDataset
+						jl fineupdateDataset
 						sub r8,4
 						vmovss xmm6,[rdx+r8]    	;leggi ultimo elem di v
 						vshufps ymm6,ymm6,00000000					
 						vperm2f128 ymm6, ymm6, ymm6, 0
 						
 
-cicloNAggiornaDatasetUnrolling64:
+cicloNupdateDatasetUnrolling64:
 
 						cmp r10,128
-						jl cicloNAggiornaDatasetVect
+						jl cicloNupdateDatasetVect
 
 						sub r10,128     ;n*4 - 8
 						sub r9,128      ;n*k - 8
@@ -1168,12 +1168,12 @@ cicloNAggiornaDatasetUnrolling64:
 						vperm2f128 ymm6, ymm6, ymm6, 0
 						
 
-						jmp cicloNAggiornaDatasetUnrolling64
+						jmp cicloNupdateDatasetUnrolling64
 
-cicloNAggiornaDatasetVect:
+cicloNupdateDatasetVect:
 
 						cmp r10,32
-						jl cicloKAggiornaDatasetVect
+						jl cicloKupdateDatasetVect
 
 						sub r10,32
 						sub r9,32
@@ -1184,10 +1184,10 @@ cicloNAggiornaDatasetVect:
 						vsubps ymm0,ymm1 	   		;D-u[1..4]*v[p]
 
 						vmovaps [rdi+r9], ymm0 ;scrivi in D
-						jmp cicloNAggiornaDatasetVect
+						jmp cicloNupdateDatasetVect
 
 
-fineAggiornaDataset:
+fineupdateDataset:
 
 
 						popaq						; ripristina i registri generali
@@ -1280,9 +1280,9 @@ fineQP:
 
 
 
-global prodottoQPV
+global productQPV
 
-prodottoQPV:
+productQPV:
 
 
 		
@@ -1302,10 +1302,10 @@ prodottoQPV:
             vxorps ymm7, ymm7
 
 
-cicloProdottoQPV64:
+cicloproductQPV64:
 
 			cmp rdx, 256
-			jl cicloProdottoQPV16
+			jl cicloproductQPV16
 
 			vmovaps ymm0, [rdi+r8]
 			vmovaps ymm1, [rdi+r8+32]
@@ -1336,12 +1336,12 @@ cicloProdottoQPV64:
 
 			add r8, 256
 			sub rdx, 256
-			jmp cicloProdottoQPV64
+			jmp cicloproductQPV64
 
-cicloProdottoQPV16:
+cicloproductQPV16:
 
            cmp rdx, 32
-           jl fineProdottoQPV
+           jl fineproductQPV
 
            vmovaps ymm0, [rdi+r8]
            vmulps ymm0, [rsi+r8]
@@ -1350,12 +1350,12 @@ cicloProdottoQPV16:
            sub rdx, 32
            add r8, 32
 
-           jmp cicloProdottoQPV16
+           jmp cicloproductQPV16
 
 
 
 
-fineProdottoQPV:
+fineproductQPV:
 
 			
 			vhaddps ymm7, ymm7
