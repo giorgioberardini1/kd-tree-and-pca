@@ -2,7 +2,7 @@
 
   
 
-A Kd-tree is a k-dimensional binary search tree. Given a dataset D, that is a set of a k-dimensional points, a build tree can index these points allowing fast answer to the following question:
+A Kd-tree is a k-dimensional binary search tree. Given a dataset D, that is a set of a k-dimensional points, a build tree can index these points allowing to answer fast to the following question:
 
 
 
