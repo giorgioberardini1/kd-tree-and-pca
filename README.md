@@ -8,7 +8,7 @@ A Kd-tree is a k-dimensional binary search tree. Given a dataset D, that is a se
 
   
 
-*given a point Q and a radius r, what are the points of D which are less than r from Q?*
+*given a point Q and a radius r, which are the points of D that are less than r from Q?*
 
   
   
