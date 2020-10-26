@@ -20,9 +20,9 @@ It has been proved that when k is big enough an indexing technique is not very e
 A solution is to reduce the dataset dimension considering only the principal component, this is also known as *Principal Component Analysis* (PCA).
 
 
-The algorithm used to implement the PCA is the NIPALS algorithm. 
+The PCA implementation follows NIPALS algorithm. 
 
-In order to obtain an improvement in performance in terms of time, we used the following optimization techniques both in C  and  Assembly environment ([ILP](https://en.wikipedia.org/wiki/Instruction-level_parallelism) - [SIMD](https://en.wikipedia.org/wiki/SIMD)):
+In order to obtain time improvement, we applied the following optimization techniques both in C  and  Assembly environment ([ILP](https://en.wikipedia.org/wiki/Instruction-level_parallelism) - [SIMD](https://en.wikipedia.org/wiki/SIMD)):
 
 
 - Caching
